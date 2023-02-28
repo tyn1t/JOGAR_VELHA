@@ -2,8 +2,26 @@ import random
 matriz = [[0,0,0],
            [0,0,0],
            [0,0,0]]
+def verifica_int(mensagem, ini, fim):
+    while True:
+       try:
+          valor = int(input(mensagem))
+          if valor >= ini and valor <= fim:
+             return valor
+       except ValueError:
+          print("Error digite valor ") 
+       except IndexError:
+          print(f"Digite valor entre {ini} e {fim}")      
+          
+ 
 def menu():
-   pass
+   print('''
+         JOGAR:   [1]
+         EXEMPLO: [2]
+         
+         SAIR:    [0]
+         ''') 
+   return verifica_int("EScolhar uma opção: ",0,2)
 
 def imprima():
     print('-'*50,'JOGO DA VELHA','-'*50)
@@ -22,23 +40,20 @@ def Ex():
     [coluna:1,2,3]  = C 
     
       Ex:                                 
-              C 1   2   3      
-            L                             
-            1  ___|___|___      ___|___|___                            
-            2  ___|___|___   =  ___|___|___                             
-            3  3,1|   |3,3      X |   | O         ''')
+           C 1   2   3      
+         L                             
+         1  ___|___|___      ___|___|___                            
+         2  ___|___|___   =  ___|___|___                             
+         3  3,1|   |3,3       X |   | O        
+''')
 
-def inicia():
-   p = input("Inicia uma nova partida [S] ou [N]: ").lower()
-   if p == 's' or p == 'y':
-      for x in range(3):
-         for y in range(3):
+def rest():
+    for x in range(3):
+        for y in range(3):
             matriz[x][y] = 0
-      main()
-   else:
-      return 0
-   
-   return matriz
+    return matriz
+
+ 
 def   ganha():
       jogador = 0
       
@@ -97,8 +112,8 @@ def main():
         
         # Jogador Escolhe as posição 
         try:   
-            linha  = int(input('Linha: '))
-            coluna = int(input('Coluna: '))
+            linha  = int(input('Linha: ',end=" "))
+            coluna = int(input('Coluna: ',end=" "))
             if matriz[linha-1][coluna-1] == 0:
                matriz[linha-1][coluna-1] = jogar[0]
                troca = True
@@ -113,31 +128,27 @@ def main():
         #MOSTRA O GANHADOR DA PARTIDA
         g = ganha()
         
-        
         if g == 3:
-           ini = inicia()
            print('JOGADOR X GANHO PARABÉNS')
-           if ini == 0:
-              break
-           else:
-              ini
-            
+           break
+      
         elif g == -3:
-           ini = inicia()
            print('JOGADOR O GANHO PARABÉNS')
-           if ini == 0:
-              break
-           else:
-              ini
+           break
+        
         elif g == 9:
-           ini = inicia()
-           print('VELHA ') 
-           if ini == 0:
-              break
-           else:
-              ini
+           print('VELHA ')
+           break
           
          
 if __name__ == '__main__':
-   main()
+   while True:
+      opecao = menu()
+      if opecao == 0:
+         break
+      elif opecao == 1:
+         rest()
+         main()
+      elif opecao == 2:
+         Ex()
   
